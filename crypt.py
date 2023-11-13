@@ -32,7 +32,6 @@ def encrypt():
     message = 'hello Bob!'.encode('utf8')
     crypto = rsa.encrypt(message, keyPub)
     message = rsa.decrypt(crypto, keyPriv)
-    print(keyPriv)
 
     js = request.get_json()
     return jsonify(message.decode('utf8'))  
@@ -41,5 +40,5 @@ def encrypt():
 def hello():
     return 'Hello, World'
 
-
-# app.run()
+if __name__ == "__main__":
+    app.run()
