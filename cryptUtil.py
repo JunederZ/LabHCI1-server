@@ -34,5 +34,6 @@ def decode(message) -> str:
     decrypted = rsa.decrypt(message, keyPriv)
     return decrypted
 
-# def encodeWithUDI(message) -> str:
+# def encodeWithUDI(message, UID) -> str:
+
 
