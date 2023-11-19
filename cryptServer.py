@@ -10,17 +10,26 @@ import cryptUtil
 
 app = Flask(__name__)
 
-@app.route('/register', methods=['GET'])
-def encrypt():
+@app.route('/register', methods=['POST'])
+def register():
+
+    jsons = request.get_json()
+
+    ferKey = cryptUtil.createFernetKey(jsons['deviceID'], jsons['username'])
 
     cryptUtil.genKeys()
     
     with open('public.pem', mode='rb') as publicfile:
         key = publicfile.read().decode()
         
-    returns = {'key' : key}
+    returns = {
+        'key' : key,
+        'udidKey' : base64.b64encode(ferKey).decode('ascii')
+        }
+    
+    decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns))
 
-    return json.dumps(returns)
+    return decryptedJson
 
 @app.route('/decrypt', methods=['POST'])
 def hello():

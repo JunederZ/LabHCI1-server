@@ -38,11 +38,15 @@ def decode(message) -> str:
 
 def createFernetKey(UID : str, username : str):
     keyUID = username + UID 
-    key = hashlib.md5(keyUID.encode()).hexdigest()
-    key_64 = base64.urlsafe_b64encode(key.encode()) #store this
+    key = hashlib.sha256(keyUID.encode()).digest()
+
+    key_64 = base64.b64encode(key) #store this
+    print(key_64)
 
     with open('fernet.pem', mode='wb') as fernet:
         fernet.write(key_64)
+
+    return key_64
 
 def getFernetKey():
 
@@ -55,9 +59,10 @@ def getFernetKey():
     
     return byteKey
 
-def encodeWithUDID(message : str, UID : str, username : str) -> str:
+def encodeWithUDID(message : str) -> str:
 
-    keyUID = username + UID 
-    key = hashlib.md5(keyUID.encode()).hexdigest()
-    key_64 = base64.urlsafe_b64encode(key.encode()) #store this
-    fernetKey = Fernet(key_64)
+    fernetKey = Fernet(getFernetKey())
+
+    cipher = fernetKey.encrypt(message.encode())
+
+    return base64.b64encode(cipher).decode('ascii')
