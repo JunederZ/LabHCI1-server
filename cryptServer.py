@@ -10,30 +10,47 @@ import cryptUtil
 
 app = Flask(__name__)
 
-@app.route('/register', methods=['GET'])
-def encrypt():
+# @app.route('/register', methods=['GET'])
+# def encrypt():
 
+#     cryptUtil.genKeys()
+
+#     with open('public.pem', mode='rb') as publicfile:
+#         key = publicfile.read().decode()
+
+#     returns = {'key' : key}
+
+#     return json.dumps(returns)
+
+
+@app.route("/register", methods=["POST"])
+def register():
     cryptUtil.genKeys()
-    
-    with open('public.pem', mode='rb') as publicfile:
+
+    with open("public.pem", mode="rb") as publicfile:
         key = publicfile.read().decode()
-        
-    returns = {'key' : key}
 
-    return json.dumps(returns)
+    # print(key)
+    data = request.get_json(force=True)
+    print(data)
 
-@app.route('/decrypt', methods=['POST'])
+    response = jsonify({"key": key})
+
+    return response
+
+
+@app.route("/decrypt", methods=["POST"])
 def hello():
-
     jsons = request.get_data()
 
     messageReturn = base64.b64decode(jsons)
 
     message = json.loads(cryptUtil.decode(messageReturn))
 
-    print('decrypted message : ' + message["message"])
+    print("decrypted message : " + message["message"])
 
-    return 'decrypted message : ' + message['message']
+    return "decrypted message : " + message["message"]
+
 
 if __name__ == "__main__":
     app.run()
