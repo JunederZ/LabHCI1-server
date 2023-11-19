@@ -1,6 +1,6 @@
 import os
 import rsa
-
+import base64
 
 def genKeys(overwrite = False) -> None:
 
@@ -32,7 +32,7 @@ def decode(message) -> str:
         keyPriv = rsa.PrivateKey.load_pkcs1(key)
     
     decrypted = rsa.decrypt(message, keyPriv)
-    return decrypted
+    return decrypted.decode()
 
 # def encodeWithUDI(message, UID) -> str:
 
