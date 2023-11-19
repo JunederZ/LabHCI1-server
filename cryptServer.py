@@ -24,7 +24,7 @@ def register():
         
     returns = {
         'key' : key,
-        'udidKey' : base64.b64encode(ferKey).decode('ascii')
+        'udidKey' : ferKey.decode('ascii')
         }
     
     decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns))

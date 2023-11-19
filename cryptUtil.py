@@ -41,7 +41,6 @@ def createFernetKey(UID : str, username : str):
     key = hashlib.sha256(keyUID.encode()).digest()
 
     key_64 = base64.b64encode(key) #store this
-    print(key_64)
 
     with open('fernet.pem', mode='wb') as fernet:
         fernet.write(key_64)
@@ -63,7 +62,6 @@ def encodeWithUDID(message : str) -> str:
 
     fernetKey = Fernet(getFernetKey())
 
-    cipher = fernetKey.encrypt(message.encode('ascii'))
-    print(base64.b64encode(cipher).decode('ascii'))
+    cipher = fernetKey.encrypt(message.encode())
 
     return base64.b64encode(cipher).decode('ascii')
