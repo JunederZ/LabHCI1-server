@@ -36,5 +36,3 @@ class DBUtil:
     
 
     
-
-DBUtil().addUser("as","bs","asas","asdfasd")

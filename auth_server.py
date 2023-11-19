@@ -19,6 +19,7 @@ def login():
     udid = decrypted_json.get('udid')
     password = decrypted_json.get('password')
     user = DBUtil().getByUDID(udid)
+    msg = "success"
     if not user: 
         return "ga terdaftar" 
         '''kalo belum terdaftar otomatis ga bisa login dong? 
@@ -32,8 +33,11 @@ def login():
         ph=PasswordHasher()
         ph.verify(pw_hash, password)
     except Exception as e:
-        return "Password salah"
-    encrypted_resp = cryptUtil.encodeWithUDID(encrypted_resp, udid)
+        return "password salah"
+    body = {
+        "msg": msg,
+    }
+    encrypted_resp = cryptUtil.encodeWithUDID(body, udid)
     resp = make_response(encrypted_resp, 200)
     resp.mimetype = "text/plain"
     resp.content_type = "text/plain"
