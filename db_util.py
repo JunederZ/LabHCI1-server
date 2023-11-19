@@ -29,7 +29,7 @@ class DBUtil:
     def getByUDID(self, UDID):
         conn = self.conn()
         cur = conn.cursor()
-        sql = "select * from userData where deviceID=%s"
+        sql = "select * from userData where deviceId=%s"
         cur.execute(sql, (UDID,))
         res = cur.fetchone()
         return res
