@@ -2,7 +2,7 @@ from flask import Flask, make_response
 from flask import request
 from flask import jsonify
 from argon2 import PasswordHasher
-
+import logging
 
 import base64
 
@@ -12,6 +12,8 @@ import cryptUtil
 from db_util import DBUtil
 
 app = Flask(__name__)
+file_handler = logging.FileHandler('/var/log/flaskapp.log')
+app.logger.addHandler(file_handler)
 
 
 @app.route("/register", methods=["POST"])
