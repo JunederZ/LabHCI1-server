@@ -7,6 +7,7 @@ import base64
 import json
 
 import cryptUtil
+from db_util import DBUtil
 
 app = Flask(__name__)
 
@@ -22,12 +23,18 @@ def register():
     with open("public.pem", mode="rb") as publicfile:
         key = publicfile.read().decode()
 
+    db = DBUtil()
+    username = jsons.get('username')
+    password = jsons.get('password')
+    deviceId = jsons.get('deviceId')
+    full_name = jsons.get('fullName')
+    db.addUser(username, password, deviceId, full_name)
     returns = {
         "key": key,
         # "udidKey": ferKey.decode("ascii"),
     }
 
-    decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns), jsons["deviceID"])
+    decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns), deviceId)
     response = make_response(decryptedJson, 200)
     response.mimetype = "text/plain"
     response.content_type = "text/plain"

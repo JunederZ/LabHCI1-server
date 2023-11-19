@@ -17,8 +17,12 @@ class DBUtil:
         conn = self.conn()
         cur = conn.cursor()
         sql = "INSERT INTO userData (username, password, deviceID, fullName) VALUES (%s, %s, %s, %s)"
-        cur.execute(sql, (username, hashed_pass, device_id, full_name))
-        conn.commit()
+        try:
+            cur.execute(sql, (username, hashed_pass, device_id, full_name))
+            conn.commit()
+        except mysql.connector.errors.IntegrityError:
+            return "device already exists"
+        return "success"
 
     
 
@@ -33,3 +37,4 @@ class DBUtil:
 
     
 
+DBUtil().addUser("as","bs","asas","asdfasd")
