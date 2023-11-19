@@ -68,7 +68,7 @@ def login():
     user = DBUtil().getByUDID(udid)
     msg = "success"
     if not user: 
-        return "ga terdaftar" 
+        msg = "ga terdaftar" 
         '''kalo belum terdaftar otomatis ga bisa login dong? 
         kan belum dapet pubkey? udid juga belum ada di server'''
         # resp = make_response(decryptedJson, 200)
