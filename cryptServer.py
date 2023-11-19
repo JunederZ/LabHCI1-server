@@ -29,8 +29,6 @@ def register():
 
     decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns))
     response = make_response(decryptedJson, 200)
-    # response.headers['X-Parachutes'] = 'parachutes are cool'
-
     response.mimetype = "text/plain"
     response.content_type = "text/plain"
 

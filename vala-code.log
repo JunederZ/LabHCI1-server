@@ -1,0 +1,11 @@
+file created by vala-code
+EXT ERR initTerminal: err:n.window.registerTerminalLinkHandler is not a function
+EXT starting server
+...bin:
+...args:--log=/Users/ktsabit/dev/hci1-server/vala-code.log, --verbose=med, --port=8787, --stx=, --etx=, --path=/Users/ktsabit/dev/hci1-server, --theme=light
+EXT ERR spawn err:The argument 'file' cannot be empty. Received ''
+EXT WARN [Analyzer] valacodesettings...
+...analyzerPath[]
+...analyzerLogFile:/Users/ktsabit/dev/hci1-server/vala-code.log
+...analyzerAdditionalArgs:--theme=light
+...debugmode:true isDevelopment:true maxConsoleDebugMsgChars:5000

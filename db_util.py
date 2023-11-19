@@ -20,6 +20,8 @@ class DBUtil:
         cur.execute(sql, (username, hashed_pass, device_id, full_name))
         conn.commit()
 
+    
+
     def getByUDID(self, UDID):
         conn = self.conn()
         cur = conn.cursor()
