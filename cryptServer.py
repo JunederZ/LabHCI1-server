@@ -80,7 +80,7 @@ def login():
         ph=PasswordHasher()
         ph.verify(pw_hash, password)
     except Exception as e:
-        return "password salah"
+        msg = "password salah"
     body = {
         "msg": msg,
     }
