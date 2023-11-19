@@ -28,9 +28,10 @@ def register():
     password = jsons.get('password')
     deviceId = jsons.get('deviceId')
     full_name = jsons.get('fullName')
-    db.addUser(username, password, deviceId, full_name)
+    res = db.addUser(username, password, deviceId, full_name)
     returns = {
         "key": key,
+        "status": res,
         # "udidKey": ferKey.decode("ascii"),
     }
 
