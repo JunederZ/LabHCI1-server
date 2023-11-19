@@ -3,13 +3,13 @@ from argon2 import PasswordHasher
 
 class DBUtil:
     def conn(self):
-        mydb = mysql.connector.connect(
+        db = mysql.connector.connect(
             host="ned.masuk.id",
             user="uiulutbl_hci",
             password="kipasangin12",
             database="uiulutbl_hci",
         )
-        return mydb
+        return db
 
     def addUser(self, username, password, device_id, full_name):
         ph = PasswordHasher()
@@ -27,5 +27,7 @@ class DBUtil:
         cur.execute(sql, (UDID,))
         res = cur.fetchone()
         return res
+    
+
     
 

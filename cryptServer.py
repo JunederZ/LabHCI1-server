@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, make_response
 from flask import request
 from flask import jsonify
 
@@ -10,39 +10,46 @@ import cryptUtil
 
 app = Flask(__name__)
 
-@app.route('/register', methods=['POST'])
-def register():
 
+@app.route("/register", methods=["POST"])
+def register():
     jsons = request.get_json()
 
-    ferKey = cryptUtil.createFernetKey(jsons['deviceID'], jsons['username'])
+    ferKey = cryptUtil.createFernetKey(jsons["deviceID"], jsons["username"])
 
     cryptUtil.genKeys()
-    
-    with open('public.pem', mode='rb') as publicfile:
+
+    with open("public.pem", mode="rb") as publicfile:
         key = publicfile.read().decode()
-        
+
     returns = {
-        'key' : key,
-        'udidKey' : ferKey.decode('ascii')
-        }
-    
+        "key": key,
+        "udidKey": ferKey.decode("ascii"),
+    }
+
     decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns))
+    response = make_response(decryptedJson, 200)
+    # response.headers['X-Parachutes'] = 'parachutes are cool'
 
-    return decryptedJson
+    response.mimetype = "text/plain"
+    response.content_type = "text/plain"
 
-@app.route('/decrypt', methods=['POST'])
+    # return decryptedJson
+    return response
+
+
+@app.route("/decrypt", methods=["POST"])
 def hello():
-
     jsons = request.get_data()
 
     messageReturn = base64.b64decode(jsons)
 
     message = json.loads(cryptUtil.decode(messageReturn))
 
-    print('decrypted message : ' + message["message"])
+    print("decrypted message : " + message["message"])
 
-    return 'decrypted message : ' + message['message']
+    return "decrypted message : " + message["message"]
+
 
 if __name__ == "__main__":
     app.run()
