@@ -63,6 +63,7 @@ def encodeWithUDID(message : str) -> str:
 
     fernetKey = Fernet(getFernetKey())
 
-    cipher = fernetKey.encrypt(message.encode())
+    cipher = fernetKey.encrypt(message.encode('ascii'))
+    print(base64.b64encode(cipher).decode('ascii'))
 
     return base64.b64encode(cipher).decode('ascii')
