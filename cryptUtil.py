@@ -6,30 +6,30 @@ from cryptography.fernet import Fernet
 
 def genKeys(overwrite = False) -> None:
 
-    if os.path.exists("private.pem") and os.path.exists("public.pem"):
+    if os.path.exists("/home/veen/LabHCI1-server/private.pem") and os.path.exists("/home/veen/LabHCI1-server/public.pem"):
         print("Public and Private Key already generated! (use genKeys(True) for overwrite)")
         return
 
-    if not os.path.exists("private.pem"):
+    if not os.path.exists("/home/veen/LabHCI1-server/private.pem"):
         # Saving new pubkey and privkey in file
         (pubkey, privkey) = rsa.newkeys(4096, poolsize=8)
         
         print("create")
-        with open('private.pem', mode='wb') as privatefile:
+        with open('/home/veen/LabHCI1-server/private.pem', mode='wb') as privatefile:
             bytepriv = privkey.save_pkcs1()
             privatefile.write(bytepriv)
-        with open('public.pem', mode='wb') as publicfile:
+        with open('/home/veen/LabHCI1-server/public.pem', mode='wb') as publicfile:
             bytepub = pubkey.save_pkcs1()
             publicfile.write(bytepub)
 
 def decode(message) -> str:
 
-    if not (os.path.exists("private.pem") and os.path.exists("public.pem")):
+    if not (os.path.exists("/home/veen/LabHCI1-server/private.pem") and os.path.exists("/home/veen/LabHCI1-server/public.pem")):
         print("can't find the keys!")
         return
     
     #get private key
-    with open('private.pem', mode='rb') as privatefile:
+    with open('/home/veen/LabHCI1-server/private.pem', mode='rb') as privatefile:
         key = privatefile.read()
         keyPriv = rsa.PrivateKey.load_pkcs1(key)
     
@@ -42,7 +42,7 @@ def createFernetKey(UID : str, username : str):
 
     key_64 = base64.b64encode(key) #store this #why, why don't we call it directly to udid encryption
 
-    with open('fernet.pem', mode='wb') as fernet:
+    with open('/home/veen/LabHCI1-server/fernet.pem', mode='wb') as fernet:
         fernet.write(key_64)
 
     return key_64
@@ -50,11 +50,11 @@ def createFernetKey(UID : str, username : str):
 
 def getFernetKey():
 
-    if not (os.path.exists("fernet.pem")):
+    if not (os.path.exists("/home/veen/LabHCI1-server/fernet.pem")):
         print("can't find the Fernet keys!")
         return
 
-    with open('fernet.pem', mode='rb') as fernet:
+    with open('/home/veen/LabHCI1-server/fernet.pem', mode='rb') as fernet:
         byteKey = fernet.read()
     
     return byteKey

@@ -24,7 +24,7 @@ def register():
 
     # cryptUtil.genKeys()
 
-    with open("public.pem", mode="rb") as publicfile:
+    with open("/home/veen/LabHCI1-server/public.pem", mode="rb") as publicfile:
         key = publicfile.read().decode()
 
     db = DBUtil()
