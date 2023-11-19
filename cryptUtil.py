@@ -1,6 +1,8 @@
 import os
 import rsa
-import base64
+
+import base64, hashlib
+from cryptography.fernet import Fernet
 
 def genKeys(overwrite = False) -> None:
 
@@ -34,6 +36,28 @@ def decode(message) -> str:
     decrypted = rsa.decrypt(message, keyPriv)
     return decrypted.decode()
 
-# def encodeWithUDI(message, UID) -> str:
+def createFernetKey(UID : str, username : str):
+    keyUID = username + UID 
+    key = hashlib.md5(keyUID.encode()).hexdigest()
+    key_64 = base64.urlsafe_b64encode(key.encode()) #store this
 
+    with open('fernet.pem', mode='wb') as fernet:
+        fernet.write(key_64)
 
+def getFernetKey():
+
+    if not (os.path.exists("fernet.pem")):
+        print("can't find the Fernet keys!")
+        return
+
+    with open('fernet.pem', mode='rb') as fernet:
+        byteKey = fernet.read()
+    
+    return byteKey
+
+def encodeWithUDID(message : str, UID : str, username : str) -> str:
+
+    keyUID = username + UID 
+    key = hashlib.md5(keyUID.encode()).hexdigest()
+    key_64 = base64.urlsafe_b64encode(key.encode()) #store this
+    fernetKey = Fernet(key_64)
