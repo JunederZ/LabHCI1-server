@@ -85,7 +85,7 @@ def login():
         "msg": msg,
     }
 
-    encrypted_resp = cryptUtil.encodeWithUDID(json.loads(body), udid)
+    encrypted_resp = cryptUtil.encodeWithUDID(json.dumps(body), udid)
     resp = make_response(encrypted_resp, 200)
     resp.mimetype = "text/plain"
     resp.content_type = "text/plain"
