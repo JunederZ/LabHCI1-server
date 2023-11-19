@@ -15,19 +15,19 @@ app = Flask(__name__)
 def register():
     jsons = request.get_json()
 
-    ferKey = cryptUtil.createFernetKey(jsons["deviceID"], jsons["username"])
+    # ferKey = cryptUtil.createFernetKey(jsons["deviceID"], jsons["username"])
 
-    cryptUtil.genKeys()
+    # cryptUtil.genKeys()
 
     with open("public.pem", mode="rb") as publicfile:
         key = publicfile.read().decode()
 
     returns = {
         "key": key,
-        "udidKey": ferKey.decode("ascii"),
+        # "udidKey": ferKey.decode("ascii"),
     }
 
-    decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns))
+    decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns), jsons["deviceID"])
     response = make_response(decryptedJson, 200)
     response.mimetype = "text/plain"
     response.content_type = "text/plain"
