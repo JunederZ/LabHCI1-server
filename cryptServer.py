@@ -62,13 +62,9 @@ def higuys():
 @app.route("/decrypt", methods=["POST"])
 def hello():
     jsons = request.get_data()
-
     messageReturn = base64.b64decode(jsons)
-
     message = json.loads(cryptUtil.decode(messageReturn))
-
     print("decrypted message : " + message["message"])
-
     return "decrypted message : " + message["message"]
 
 @app.route('/login', methods=['POST'])
