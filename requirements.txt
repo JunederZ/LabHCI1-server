@@ -1,3 +1,5 @@
 Flask
 cryptography
 rsa
+argon2-cffi
+mysql-connector-python

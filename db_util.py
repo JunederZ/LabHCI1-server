@@ -3,13 +3,13 @@ from argon2 import PasswordHasher
 
 class DBUtil:
     def conn(self):
-        mydb = mysql.connector.connect(
+        db = mysql.connector.connect(
             host="ned.masuk.id",
             user="uiulutbl_hci",
             password="kipasangin12",
             database="uiulutbl_hci",
         )
-        return mydb
+        return db
 
     def addUser(self, username, password, device_id, full_name):
         ph = PasswordHasher()
@@ -17,15 +17,22 @@ class DBUtil:
         conn = self.conn()
         cur = conn.cursor()
         sql = "INSERT INTO userData (username, password, deviceID, fullName) VALUES (%s, %s, %s, %s)"
-        cur.execute(sql, (username, hashed_pass, device_id, full_name))
-        conn.commit()
+        try:
+            cur.execute(sql, (username, hashed_pass, device_id, full_name))
+            conn.commit()
+        except mysql.connector.errors.IntegrityError:
+            return "device already exists"
+        return "success"
+
+    
 
     def getByUDID(self, UDID):
         conn = self.conn()
         cur = conn.cursor()
-        sql = "select * from userData where deviceID=%s"
+        sql = "select * from userData where deviceId=%s"
         cur.execute(sql, (UDID,))
         res = cur.fetchone()
         return res
     
 
+    
