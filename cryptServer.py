@@ -47,6 +47,15 @@ def register():
     # return decryptedJson
     return response
 
+@app.route("/reset", methods=['POST'])
+def rs():
+    udid = request.get_data()
+    DBUtil().deleteUser(udid)
+    response = make_response("success", 200)
+    response.mimetype = "text/plain"
+    response.content_type = "text/plain"
+    return response
+
 @app.route("/ping", methods=['POST'])
 def higuys():
     data = request.get_data()

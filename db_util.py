@@ -10,6 +10,13 @@ class DBUtil:
             database="uiulutbl_hci",
         )
         return db
+    
+    def deleteUser(self, udid):
+        sql = "DELETE FROM userData WHERE deviceID = %s"
+        conn = self.conn()
+        cur = conn.cursor()
+        cur.execute(sql, (udid,))
+        conn.commit()
 
     def addUser(self, username, password, device_id, full_name):
         ph = PasswordHasher()
@@ -36,3 +43,4 @@ class DBUtil:
     
 
     
+DBUtil().deleteUser('0865e807c92089cc')
