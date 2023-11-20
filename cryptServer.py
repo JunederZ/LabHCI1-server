@@ -53,7 +53,7 @@ def higuys():
     rawdata = base64.b64decode(data)
     decrypted_data = json.loads(cryptUtil.decode(rawdata))
     decrypted_data['serverMsg'] = "get some help"
-    encrypted_res = cryptUtil.encodeWithUDID(json.dumps(returns), decrypted_data['deviceId'])
+    encrypted_res = cryptUtil.encodeWithUDID(json.dumps(decrypted_data), decrypted_data['deviceId'])
     response = make_response(encrypted_res, 200)
     response.mimetype = "text/plain"
     response.content_type = "text/plain"
