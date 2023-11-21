@@ -24,8 +24,6 @@ class DBUtil:
             return "device already exists"
         return "success"
 
-    
-
     def getByUDID(self, UDID):
         conn = self.conn()
         cur = conn.cursor()
@@ -33,6 +31,13 @@ class DBUtil:
         cur.execute(sql, (UDID,))
         res = cur.fetchone()
         return res
-    
+
+    def deleteByUDID(self, UDID):
+        conn = self.conn()
+        cur = conn.cursor()
+        sql = "DELETE FROM `userData` WHERE deviceId=%s"
+        cur.execute(sql, (UDID,))
+        return "success"
+
 
     

@@ -100,6 +100,20 @@ def login():
     resp.content_type = "text/plain"
     return resp
     
+@app.route('/unregist', methods=['POST'])
+def unregist():
+    jsons = request.get_json()
+    deviceId = jsons.get('deviceId')
+    db = DBUtil()
+
+    db.deleteByUDID(deviceId)
+
+    response = make_response('success', 200)
+    response.mimetype = "text/plain"
+    response.content_type = "text/plain"
+
+    return response
+
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
