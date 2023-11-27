@@ -100,12 +100,11 @@ def login():
     
     
     try:
-        print(user, flush=True)
-        username, pw_hash, udid, full_name = user
+        username, pw_hash, udid, full_name, email = user
         ph=PasswordHasher()
         ph.verify(pw_hash, password)
     except Exception as e:
-        msg = f"{user}"
+        msg = f"{e}"
     body = {
         "msg": msg,
     }
