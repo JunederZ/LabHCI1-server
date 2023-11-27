@@ -32,11 +32,11 @@ def register():
     password = jsons.get('password')
     deviceId = jsons.get('deviceId')
     full_name = jsons.get('fullName')
-    res = db.addUser(username, password, deviceId, full_name)
+    email = jsons.get('email')
+    res = db.addUser(username, password, deviceId, full_name, email)
     returns = {
         "key": key,
         "status": res,
-        # "udidKey": ferKey.decode("ascii"),
     }
 
     decryptedJson = cryptUtil.encodeWithUDID(json.dumps(returns), deviceId)

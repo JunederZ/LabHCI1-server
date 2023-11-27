@@ -18,14 +18,14 @@ class DBUtil:
         cur.execute(sql, (udid,))
         conn.commit()
 
-    def addUser(self, username, password, device_id, full_name):
+    def addUser(self, username, password, device_id, full_name, email):
         ph = PasswordHasher()
         hashed_pass = ph.hash(password)
         conn = self.conn()
         cur = conn.cursor()
-        sql = "INSERT INTO userData (username, password, deviceID, fullName) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO userData (username, password, deviceID, fullName, email) VALUES (%s, %s, %s, %s)"
         try:
-            cur.execute(sql, (username, hashed_pass, device_id, full_name))
+            cur.execute(sql, (username, hashed_pass, device_id, full_name, email))
             conn.commit()
         except mysql.connector.errors.IntegrityError:
             return "device already exists"
