@@ -106,7 +106,7 @@ def login():
     except Exception as e:
         msg = e
     body = {
-        "msg": msg,
+        "msg": "Unexpected {err=}, {type(err)=}",
     }
 
     encrypted_resp = cryptUtil.encodeWithUDID(json.dumps(body), udid)
