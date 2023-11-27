@@ -105,7 +105,7 @@ def login():
         ph=PasswordHasher()
         ph.verify(pw_hash, password)
     except Exception as e:
-        msg = f"{e}"
+        msg = f"{user}"
     body = {
         "msg": msg,
     }
