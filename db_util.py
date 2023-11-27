@@ -23,7 +23,7 @@ class DBUtil:
         hashed_pass = ph.hash(password)
         conn = self.conn()
         cur = conn.cursor()
-        sql = "INSERT INTO userData (username, password, deviceID, fullName, email) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO userData (username, password, deviceID, fullName, email) VALUES (%s, %s, %s, %s, %s)"
         try:
             cur.execute(sql, (username, hashed_pass, device_id, full_name, email))
             conn.commit()
