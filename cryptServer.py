@@ -100,6 +100,7 @@ def login():
     
     
     try:
+        print(user)
         username, pw_hash, udid, full_name = user
         ph=PasswordHasher()
         ph.verify(pw_hash, password)
