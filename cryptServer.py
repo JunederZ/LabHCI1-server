@@ -97,12 +97,14 @@ def login():
         # resp.mimetype = "text/plain"
         # resp.content_type = "text/plain"
         # return resp
-    username, pw_hash, udid, full_name = user
+    
+    
     try:
+        username, pw_hash, udid, full_name = user
         ph=PasswordHasher()
         ph.verify(pw_hash, password)
     except Exception as e:
-        msg = "password salah"
+        msg = e
     body = {
         "msg": msg,
     }
