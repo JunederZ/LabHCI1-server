@@ -117,9 +117,9 @@ def unregist():
     deviceId = jsons.get('deviceId')
     db = DBUtil()
 
-    db.deleteByUDID(deviceId)
+    res = db.deleteByUDID(deviceId)
 
-    response = make_response('success', 200)
+    response = make_response(res, 200)
     response.mimetype = "text/plain"
     response.content_type = "text/plain"
 
