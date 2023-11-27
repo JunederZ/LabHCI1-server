@@ -104,9 +104,9 @@ def login():
         ph=PasswordHasher()
         ph.verify(pw_hash, password)
     except Exception as e:
-        msg = e
+        msg = f"{e}"
     body = {
-        "msg": "Unexpected {err=}, {type(err)=}",
+        "msg": msg,
     }
 
     encrypted_resp = cryptUtil.encodeWithUDID(json.dumps(body), udid)
