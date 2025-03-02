@@ -7,7 +7,7 @@ db_util.py is for database.
 dart_server folder is only for implementation example.
 
 Team:
-- Raden Arjuna Dimas Prakoso (1313622021)
-- Kaisan Tsabit (1313622020)
-- Muhamad Rizki Kadafi (1313622015)
-- Heshi Tiara Salsabilla (1313622014)
+- ***** *****a D**** P (**21)
+- ***an Ts***t (**20)
+- ***ad ***i **i (**15)
+- **i T**ra ****a (**14)
